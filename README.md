@@ -5,4 +5,7 @@ A  auto and simple Traffic  increaser with proxy. Blast your website's traffic!
 - Open kidointhere.py and switch **google.com** like **yourwebsite.com**
 - Put your proxies in **proxies.txt** and remove the hint.
 - If it necessery you can change *time* in **driver.set_page_load_timeout(time)** and **time.sleep(time)** for your website load time.
-- This program is working with **Mozilla Firefox**.[Not Google chrome in this version.(v0.1)]
+- Default browser is : **Mozilla Firefox**.
+- **Google Chrome** support is added in Version-0.2
+- For change browser  add **_Chrome** or use last lines in code.
+
