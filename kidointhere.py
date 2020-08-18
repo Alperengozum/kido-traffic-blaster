@@ -14,16 +14,39 @@ def Readproxies():
             a=proxies[i]
             if a==":":
                 proxylist=proxies[0:i]
-                portlist=proxies[i+1:len(proxies)-1]
+                portlist=proxies[i+1:len(proxies)]
                 proxyline+=1
                 break
-           
+
+def Proxyprofile_Chrome():
+    global browser
+    full_proxy=proxylist+":"+portlist
+
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--proxy-server=%s' % full_proxy)
+    browser = webdriver.Chrome(executable_path=r"chromedriver.exe", options=chrome_options)
+    print(proxylist)
+    print(portlist)
+
+
+
+def Startprocess_Chrome():
+        try:
+            #Change this for your website.
+            browser.get("https://google.com/")
+            time.sleep(60)
+            browser.quit()
+        except:
+            print("One error is happened.Please reboot this session.")
+            browser.quit()
             
         
 
 def Proxyprofile():
         global profile
         profile=webdriver.FirefoxProfile()
+        profile.set_preference("privacy.trackingprotection.enabled ", 0)
+        profile.set_preference("dom.push.connection.enabled",0)
         profile.set_preference("network.proxy.type", 1)
         profile.set_preference("network.proxy.http",str(proxylist))
         profile.set_preference("network.proxy.http_port",int(portlist))
@@ -37,11 +60,11 @@ def Proxyprofile():
 def Startprocess():
         global driver,profile
         driver=webdriver.Firefox(executable_path=r"geckodriver.exe",firefox_profile=profile)
-        driver.set_page_load_timeout(40)
+        #driver.set_page_load_timeout(40)
         try:
             #Change this for your website.
-            driver.get("http://google.com")
-            time.sleep(3)
+            driver.get("https://google.com/")
+            time.sleep(60)
             driver.quit()
         except:
             print("One error is happened.Please reboot this session.")
@@ -51,9 +74,14 @@ def Startprocess():
 
 
 
-
-
 while True:
         Readproxies()
         Proxyprofile()
         Startprocess()
+
+
+
+"""while True:
+        Readproxies()
+        Proxyprofile_Chrome()
+        Startprocess_Chrome()"""
